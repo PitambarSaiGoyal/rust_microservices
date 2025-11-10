@@ -1,0 +1,36 @@
+[package]
+name = "llamafirewall"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "High-performance Rust library for LLM guardrails"
+keywords = ["llm", "security", "guardrails", "firewall", "prompt-injection"]
+categories = ["security", "machine-learning"]
+
+[dependencies]
+# Re-export all sub-crates
+llamafirewall-core = { path = "../llamafirewall-core" }
+llamafirewall-scanners = { path = "../llamafirewall-scanners" }
+llamafirewall-ml = { path = "../llamafirewall-ml" }
+
+# Core dependencies (for convenience)
+tokio = { workspace = true }
+anyhow = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["test-util", "macros"] }
+criterion = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
+
+# Comprehensive benchmark suite (Phase 6)
+[[bench]]
+name = "comprehensive_bench"
+harness = false
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]

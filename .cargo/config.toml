@@ -1,0 +1,4 @@
+[env]
+ORT_DYLIB_PATH = "/Users/samuel_paul_v/xerago/workspace/solutions/POCs/PurpleLlama/LlamaFirewall/rust/.onnxruntime/lib/libonnxruntime.dylib"
+DYLD_LIBRARY_PATH = "/Users/samuel_paul_v/xerago/workspace/solutions/POCs/PurpleLlama/LlamaFirewall/rust/.onnxruntime/lib"
+LD_LIBRARY_PATH = "/Users/samuel_paul_v/xerago/workspace/solutions/POCs/PurpleLlama/LlamaFirewall/rust/.onnxruntime/lib"

@@ -1,0 +1,36 @@
+[package]
+name = "llamafirewall-scanners"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Scanner implementations for LlamaFirewall Rust implementation"
+
+[dependencies]
+# Internal dependencies
+llamafirewall-core = { path = "../llamafirewall-core" }
+llamafirewall-ml = { path = "../llamafirewall-ml" }
+
+# Core dependencies
+tokio = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+serde = { workspace = true }
+tracing = { workspace = true }
+async-trait = { workspace = true }
+
+# Scanner-specific dependencies
+regex = { workspace = true }
+serde_json = { workspace = true }
+uuid = { workspace = true }
+tempfile = { workspace = true }
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["test-util", "macros"] }
+criterion = { version = "0.5", features = ["async_tokio"] }
+
+[[bench]]
+name = "promptguard_bench"
+harness = false

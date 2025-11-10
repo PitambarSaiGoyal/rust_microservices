@@ -1,0 +1,39 @@
+[package]
+name = "llamafirewall-ml"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "ML infrastructure for LlamaFirewall Rust implementation"
+
+# No feature flags needed - tch-rs is the only backend
+
+[dependencies]
+# Internal dependencies
+llamafirewall-core = { path = "../llamafirewall-core" }
+
+# Core dependencies
+tokio = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+
+# ML dependencies (tch-rs - PyTorch backend)
+tch = { workspace = true }
+tokenizers = { workspace = true }
+hf-hub = { workspace = true }
+async-trait = { workspace = true }
+parking_lot = "0.12"
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["test-util", "macros"] }
+tempfile = { workspace = true }
+criterion = { workspace = true }
+
+[[bench]]
+name = "inference_bench"
+harness = false

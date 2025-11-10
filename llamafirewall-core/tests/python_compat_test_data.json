@@ -1,0 +1,106 @@
+{
+  "regex_scanner_tests": [
+    {
+      "name": "api_key_detection",
+      "content": "Here is my api_key: sk-1234567890abcdef1234567890abcdef",
+      "expected_decision": "block",
+      "expected_min_score": 0.8,
+      "expected_reason_contains": "api_key"
+    },
+    {
+      "name": "aws_key_detection",
+      "content": "AWS Key AKIAIOSFODNN7EXAMPLE found in logs",
+      "expected_decision": "block",
+      "expected_min_score": 0.8,
+      "expected_reason_contains": "aws_key"
+    },
+    {
+      "name": "private_key_detection",
+      "content": "-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA",
+      "expected_decision": "block",
+      "expected_min_score": 0.8,
+      "expected_reason_contains": "private_key"
+    },
+    {
+      "name": "jwt_detection",
+      "content": "Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+      "expected_decision": "block",
+      "expected_min_score": 0.8,
+      "expected_reason_contains": "jwt"
+    },
+    {
+      "name": "benign_prompt_1",
+      "content": "Hello, how are you?",
+      "expected_decision": "allow",
+      "expected_max_score": 0.5,
+      "expected_reason_contains": "default"
+    },
+    {
+      "name": "benign_prompt_2",
+      "content": "The weather is nice today.",
+      "expected_decision": "allow",
+      "expected_max_score": 0.5,
+      "expected_reason_contains": "default"
+    },
+    {
+      "name": "benign_prompt_3",
+      "content": "Please help me with this task.",
+      "expected_decision": "allow",
+      "expected_max_score": 0.5,
+      "expected_reason_contains": "default"
+    }
+  ],
+  "hidden_ascii_scanner_tests": [
+    {
+      "name": "hidden_ascii_detection",
+      "content": "󠁈󠁥󠁬󠁬󠁯󠀬󠀠󠁨󠁯󠁷󠀠󠁡󠁲󠁥󠀠󠁹󠁯󠁵󠀠󠁤󠁯󠁩󠁮󠁧󠀿",
+      "expected_decision": "block",
+      "expected_min_score": 0.8,
+      "expected_reason_contains": "Hidden"
+    },
+    {
+      "name": "benign_tool_output_1",
+      "content": "some_random_string",
+      "expected_decision": "allow",
+      "expected_max_score": 0.5,
+      "expected_reason_contains": "default"
+    },
+    {
+      "name": "benign_tool_output_2",
+      "content": "Normal text with emojis 😀🚀",
+      "expected_decision": "allow",
+      "expected_max_score": 0.5,
+      "expected_reason_contains": "default"
+    },
+    {
+      "name": "empty_content",
+      "content": "",
+      "expected_decision": "allow",
+      "expected_max_score": 0.5,
+      "expected_reason_contains": "default"
+    }
+  ],
+  "firewall_integration_tests": [
+    {
+      "name": "allow_with_no_scanners",
+      "role": "USER",
+      "content": "Test message",
+      "scanners": [],
+      "expected_decision": "allow"
+    },
+    {
+      "name": "block_with_regex_match",
+      "role": "USER",
+      "content": "My api_key: sk-1234567890abcdef1234567890abcdef",
+      "scanners": ["REGEX"],
+      "expected_decision": "block"
+    },
+    {
+      "name": "allow_benign_with_regex",
+      "role": "USER",
+      "content": "Hello world",
+      "scanners": ["REGEX"],
+      "expected_decision": "allow"
+    }
+  ]
+}
